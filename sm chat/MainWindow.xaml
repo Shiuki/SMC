@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="307" Margin="81,67,0,0" VerticalAlignment="Top" Width="632">
-            <Label>label 1</Label>
-            <Label>label 2</Label>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="10,374,0,0" VerticalAlignment="Top" Width="75" Background="#FF62B73A"/>
+        <StackPanel HorizontalAlignment="Left" Height="301" Margin="55,57,0,0" VerticalAlignment="Top" Width="659">
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="TextBlock"/>
+            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="TextBlock1"/>
         </StackPanel>
 
     </Grid>

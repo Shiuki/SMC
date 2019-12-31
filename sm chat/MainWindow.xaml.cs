@@ -30,7 +30,7 @@ namespace sm_chat
         private void loginbtn_Click(object sender, RoutedEventArgs e)
         {
 
-            var url = "https://smield.host/SMC_api";
+            var url = "https://smield.host/SMC_api/index.php";
             string pars = $"username={Username.Text}&password={Password.Password}";
 
             using (WebClient wc = new WebClient())
@@ -40,12 +40,30 @@ namespace sm_chat
             }
             try
             {
-                string towrite = Result.Replace(" login success ", "");
-                MessageBox.Show(towrite);
+                
+                MessageBox.Show(Result);
             }
             catch { }
         }
+        private void registerbtn_Click(object sender, RoutedEventArgs e)
+        {
 
+            var url = "https://smield.host/SMC_api/insert.php?";
+            string pars = $"username={Username.Text}&password={Password.Password}&email={Email.Text}";
+
+            using (WebClient wc = new WebClient())
+            {
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                Result = wc.UploadString(url, pars);
+            }
+            try
+            {
+
+                MessageBox.Show(Result);
+            }
+            catch { }
+
+        }
         private void Username_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -94,6 +112,7 @@ namespace sm_chat
         {
             if(register.IsChecked is true)
             {
+                namelabel.Content = "Name";
                 loginbtn.IsEnabled = false;
                 emaillabel.Visibility = Visibility.Visible;
                 Email.Visibility = Visibility.Visible;
@@ -101,6 +120,7 @@ namespace sm_chat
             }
              else
             {
+                namelabel.Content = "Name or Email";
                 loginbtn.IsEnabled = true;
                 emaillabel.Visibility = Visibility.Hidden;
                 Email.Visibility = Visibility.Hidden;
@@ -121,24 +141,6 @@ namespace sm_chat
             }
         }
         string Result;
-        private void registerbtn_Click(object sender, RoutedEventArgs e)
-        {
-           
-                var url = "https://smield.host/SMC_api/insert.php?";
-                string pars = $"username={Username.Text}&password={Password.Password}&email={Email.Text}";
-
-                using (WebClient wc = new WebClient())
-                {
-                    wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    Result = wc.UploadString(url, pars);
-                }
-            try
-            {
-                string towrite = Result.Replace("Registered Successfully ", "");
-                MessageBox.Show(towrite);
-            }
-            catch { }
-            
-        }
+       
     }
 }

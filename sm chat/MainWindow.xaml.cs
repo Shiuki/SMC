@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,7 @@ namespace sm_chat
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static bool logged_in;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace sm_chat
         {
             if(Username.Text!="" && Password.Password!="")
             {
-
+                MessageBox.Show("Successfully logged in");
             }
         }
 
@@ -64,5 +66,67 @@ namespace sm_chat
             passlabel.Visibility = Visibility.Hidden;
         }
 
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            emaillabel.Visibility = Visibility.Hidden;
+            Email.Visibility = Visibility.Hidden;
+            registerbtn.Visibility = Visibility.Hidden;
+            if (!logged_in)
+            {
+                tabControl.SelectedIndex = tabControl.Items.IndexOf(logintab);
+            }
+        }
+
+ 
+
+        private void register_Click(object sender, RoutedEventArgs e)
+        {
+            if(register.IsChecked is true)
+            {
+                loginbtn.IsEnabled = false;
+                emaillabel.Visibility = Visibility.Visible;
+                Email.Visibility = Visibility.Visible;
+                registerbtn.Visibility = Visibility.Visible;
+            }
+             else
+            {
+                loginbtn.IsEnabled = true;
+                emaillabel.Visibility = Visibility.Hidden;
+                Email.Visibility = Visibility.Hidden;
+                registerbtn.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void Email_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            emaillabel.Visibility = Visibility.Hidden;
+        }
+
+        private void Email_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (Email.Text == "")
+            {
+                emaillabel.Visibility = Visibility.Visible;
+            }
+        }
+        string Result;
+        private void registerbtn_Click(object sender, RoutedEventArgs e)
+        {
+           
+                var url = "https://smield.host/SMC_api/insert.php?";
+                string pars = $"username={Username.Text}&password={Password.Password}&email={Email.Text}";
+
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    Result = wc.UploadString(url, pars);
+                }
+            try
+            {
+                string towrite = Result.Replace("1Registered Successfully ", "");
+                MessageBox.Show(towrite);
+            }
+            
+        }
     }
 }

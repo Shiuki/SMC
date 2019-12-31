@@ -11,19 +11,29 @@
             <TabControl.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="Red" Offset="1"/>
+                    <GradientStop Color="#FF9700FF" Offset="1"/>
                 </LinearGradientBrush>
             </TabControl.Background>
-            <TabItem Header="TODO">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem x:Name="loadtab" Header="Load">
+                <Grid Background="#FF292626" Loaded="Grid_Loaded"/>
             </TabItem>
-            <TabItem Header="Login">
+            <TabItem x:Name="registertab" Header="Register">
+                <Grid Background="#FF292626"/>
+            </TabItem>
+            <TabItem x:Name="defaulttab" Header="Defaultscr">
+                <Grid Background="#FF292626"/>
+            </TabItem>
+            <TabItem x:Name="logintab" Header="Login">
                 <Grid Background="#FF292626">
-                    <Button x:Name="loginbtn" Content="Login" HorizontalAlignment="Left" Margin="313,177,0,0" VerticalAlignment="Top" Width="75" Click="loginbtn_Click"/>
+                    <Button x:Name="loginbtn" Content="Login" HorizontalAlignment="Left" Margin="313,183,0,0" VerticalAlignment="Top" Width="75" Click="loginbtn_Click" IsDefault="True"/>
                     <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="288,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Username_GotKeyboardFocus" LostKeyboardFocus="Username_LostKeyboardFocus"/>
                     <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="288,127,0,0" VerticalAlignment="Top" Width="120" Foreground="#FF62B73A" CaretBrush="#FF62B73A" GotKeyboardFocus="Password_GotKeyboardFocus" LostKeyboardFocus="Password_LostKeyboardFocus"/>
                     <Label x:Name="namelabel" Content="Name" HorizontalAlignment="Left" Margin="288,98,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
                     <Label x:Name="passlabel" Content="Password" HorizontalAlignment="Left" Margin="288,128,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
+                    <CheckBox x:Name="register" Content="New account" HorizontalAlignment="Left" Margin="288,157,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" Click="register_Click" IsTabStop="False"/>
+                    <Label x:Name="emaillabel" Content="Email" HorizontalAlignment="Left" Margin="288,226,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
+                    <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="288,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Email_GotKeyboardFocus" LostKeyboardFocus="Email_LostKeyboardFocus"/>
+                    <Button x:Name="registerbtn" Content="Register" HorizontalAlignment="Left" Margin="310,255,0,0" VerticalAlignment="Top" Width="84" Click="registerbtn_Click" IsDefault="True"/>
                 </Grid>
             </TabItem>
         </TabControl>

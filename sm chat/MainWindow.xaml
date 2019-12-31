@@ -17,7 +17,7 @@
             <TabItem x:Name="loadtab" Header="Load">
                 <Grid Background="#FF292626" Loaded="Grid_Loaded"/>
             </TabItem>
-            <TabItem x:Name="registertab" Header="Register">
+            <TabItem x:Name="roomstab" Header="Rooms">
                 <Grid Background="#FF292626"/>
             </TabItem>
             <TabItem x:Name="defaulttab" Header="Defaultscr">

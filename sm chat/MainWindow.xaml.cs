@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -24,12 +25,13 @@ namespace sm_chat
         public static bool logged_in;
         public MainWindow()
         {
+            //donot touch this ~nya
             InitializeComponent();
         }
-
+        string version = "1.0";
         private void loginbtn_Click(object sender, RoutedEventArgs e)
         {
-
+            //sending login request to the api
             var url = "https://smield.host/SMC_api/index.php";
             string pars = $"username={Username.Text}&password={Password.Password}";
 
@@ -47,7 +49,7 @@ namespace sm_chat
         }
         private void registerbtn_Click(object sender, RoutedEventArgs e)
         {
-
+            //sending register to the api
             var url = "https://smield.host/SMC_api/insert.php?";
             string pars = $"username={Username.Text}&password={Password.Password}&email={Email.Text}";
 
@@ -97,13 +99,29 @@ namespace sm_chat
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            emaillabel.Visibility = Visibility.Hidden;
-            Email.Visibility = Visibility.Hidden;
-            registerbtn.Visibility = Visibility.Hidden;
-            if (!logged_in)
+            //init the program
+            WebRequest request = WebRequest.Create($"https://smield.host/ping?{version}"); 
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            if (response.ContentLength == 0 || response.StatusCode != HttpStatusCode.OK)
             {
-                tabControl.SelectedIndex = tabControl.Items.IndexOf(logintab);
+               
+                //ping successful
+                emaillabel.Visibility = Visibility.Hidden;
+                Email.Visibility = Visibility.Hidden;
+                registerbtn.Visibility = Visibility.Hidden;
+                if (!logged_in)
+                {
+                    //show login screen
+                    tabControl.SelectedIndex = tabControl.Items.IndexOf(logintab);
+                }
             }
+            else
+            {
+                MessageBox.Show("New update is available!");
+                Process.Start("https://smield.host/SMC.exe");
+                this.Close();
+            }
+           
         }
 
  
@@ -154,6 +172,7 @@ namespace sm_chat
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //window dragging thingy
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False">
+        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="20,41,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False">
             <TabControl.Background>
@@ -32,7 +32,7 @@
                     <Label x:Name="passlabel" Content="Password" HorizontalAlignment="Left" Margin="288,128,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
                     <CheckBox x:Name="register" Content="New account" HorizontalAlignment="Left" Margin="288,157,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" Click="register_Click" IsTabStop="False"/>
                     <Label x:Name="emaillabel" Content="Email" HorizontalAlignment="Left" Margin="288,226,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
-                    <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="288,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Email_GotKeyboardFocus" LostKeyboardFocus="Email_LostKeyboardFocus"/>
+                    <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="288,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Email_GotKeyboardFocus" LostKeyboardFocus="Email_LostKeyboardFocus"/>
                     <Button x:Name="registerbtn" Content="Register" HorizontalAlignment="Left" Margin="310,255,0,0" VerticalAlignment="Top" Width="84" Click="registerbtn_Click" IsDefault="True"/>
                 </Grid>
             </TabItem>

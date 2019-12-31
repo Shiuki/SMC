@@ -141,6 +141,27 @@ namespace sm_chat
             }
         }
         string Result;
-       
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+          
+        }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void minimize(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+
+        }
     }
 }

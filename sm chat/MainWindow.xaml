@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro">
+        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="10,10,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="20,41,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False">
             <TabControl.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -37,6 +37,12 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Canvas HorizontalAlignment="Left" Height="46" Margin="-14,-5,0,0" VerticalAlignment="Top" Width="814" Focusable="True">
+            <Rectangle Height="43" Canvas.Left="14" Stroke="#FF363232" Canvas.Top="5" Width="802" Fill="#FF363232" MouseDown="Rectangle_MouseDown"/>
+            <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="780" Canvas.Top="10" Click="button_Click"/>
+            <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="735" Canvas.Top="17.5" Click="minimize"/>
+
+        </Canvas>
 
     </Grid>
 </Window>

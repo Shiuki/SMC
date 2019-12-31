@@ -29,10 +29,21 @@ namespace sm_chat
 
         private void loginbtn_Click(object sender, RoutedEventArgs e)
         {
-            if(Username.Text!="" && Password.Password!="")
+
+            var url = "https://smield.host/SMC_api";
+            string pars = $"username={Username.Text}&password={Password.Password}";
+
+            using (WebClient wc = new WebClient())
             {
-                MessageBox.Show("Successfully logged in");
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                Result = wc.UploadString(url, pars);
             }
+            try
+            {
+                string towrite = Result.Replace(" login success ", "");
+                MessageBox.Show(towrite);
+            }
+            catch { }
         }
 
         private void Username_TextChanged(object sender, TextChangedEventArgs e)
@@ -123,9 +134,10 @@ namespace sm_chat
                 }
             try
             {
-                string towrite = Result.Replace("1Registered Successfully ", "");
+                string towrite = Result.Replace("Registered Successfully ", "");
                 MessageBox.Show(towrite);
             }
+            catch { }
             
         }
     }

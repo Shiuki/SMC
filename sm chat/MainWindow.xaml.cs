@@ -22,13 +22,26 @@ namespace sm_chat
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
+        public string version = "1.0";
+
+
+
+
+
+
+
+
+
         public static bool logged_in;
         public MainWindow()
         {
             //donot touch this ~nya
             InitializeComponent();
         }
-        string version = "1.0";
+     
         private void loginbtn_Click(object sender, RoutedEventArgs e)
         {
             //sending login request to the api
@@ -96,13 +109,19 @@ namespace sm_chat
         {
             passlabel.Visibility = Visibility.Hidden;
         }
-
+        public string wef;
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            //init the program
-            WebRequest request = WebRequest.Create($"https://smield.host/ping?{version}"); 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            if (response.ContentLength == 0 || response.StatusCode != HttpStatusCode.OK)
+            string Uri = $"https://smield.host/SMC_api/ping?{version}";  
+
+            using (WebClient wc = new WebClient())
+            {
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Ssl3;
+                wef = wc.DownloadString(Uri);
+            }
+     
+
+            if (wef.Length > 0 && wef == version)
             {
                
                 //ping successful
@@ -181,6 +200,22 @@ namespace sm_chat
         {
             this.WindowState = WindowState.Minimized;
 
+        }
+        public bool playing = false;
+        private void pausebutton_png_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (playing)
+            {
+                BitmapImage image = new BitmapImage(new Uri("playbutton.png", UriKind.Relative));
+                pausebutton_png.Source = image;
+                playing = false;
+            }
+            else
+            {
+                BitmapImage image = new BitmapImage(new Uri("pausebutton.png", UriKind.Relative));
+                pausebutton_png.Source = image;
+                playing = true;
+            }
         }
     }
 }

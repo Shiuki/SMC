@@ -23,11 +23,18 @@
             <TabItem x:Name="defaulttab" Header="Defaultscr">
                 <Grid Background="#FF292626"/>
             </TabItem>
+            <TabItem x:Name="settingstab" Header="Settings">
+                <Grid Background="#FF292626">
+                    <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="353,43,0,0" VerticalAlignment="Top" Width="75" Background="#FF62B73A"/>
+                    <RadioButton x:Name="radioButton" Content="RadioButton" HorizontalAlignment="Left" Margin="340,80,0,0" VerticalAlignment="Top" Foreground="#FF62B73A"/>
+                    <Label x:Name="label" Content="yes he would" HorizontalAlignment="Left" Margin="208,66,0,0" VerticalAlignment="Top" Foreground="#FF62B73A"/>
+                </Grid>
+            </TabItem>
             <TabItem x:Name="logintab" Header="Login">
                 <Grid Background="#FF292626">
                     <Button x:Name="loginbtn" Content="Login" HorizontalAlignment="Left" Margin="313,183,0,0" VerticalAlignment="Top" Width="75" Click="loginbtn_Click" IsDefault="True"/>
-                    <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="288,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Username_GotKeyboardFocus" LostKeyboardFocus="Username_LostKeyboardFocus"/>
-                    <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="288,127,0,0" VerticalAlignment="Top" Width="120" Foreground="#FF62B73A" CaretBrush="#FF62B73A" GotKeyboardFocus="Password_GotKeyboardFocus" LostKeyboardFocus="Password_LostKeyboardFocus"/>
+                    <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="288,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Username_GotKeyboardFocus" LostKeyboardFocus="Username_LostKeyboardFocus"/>
+                    <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="288,127,0,0" VerticalAlignment="Top" Width="296" Foreground="#FF62B73A" CaretBrush="#FF62B73A" GotKeyboardFocus="Password_GotKeyboardFocus" LostKeyboardFocus="Password_LostKeyboardFocus"/>
                     <Label x:Name="namelabel" Content="Name or Email" HorizontalAlignment="Left" Margin="288,98,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
                     <Label x:Name="passlabel" Content="Password" HorizontalAlignment="Left" Margin="288,128,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" IsHitTestVisible="False"/>
                     <CheckBox x:Name="register" Content="New account" HorizontalAlignment="Left" Margin="288,157,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" Click="register_Click" IsTabStop="False"/>
@@ -39,8 +46,9 @@
         </TabControl>
         <Canvas HorizontalAlignment="Left" Height="46" Margin="-14,-5,0,0" VerticalAlignment="Top" Width="814" Focusable="True">
             <Rectangle Height="43" Canvas.Left="14" Stroke="#FF363232" Canvas.Top="5" Width="802" Fill="#FF363232" MouseDown="Rectangle_MouseDown"/>
-            <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="780" Canvas.Top="10" Click="button_Click"/>
-            <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="735" Canvas.Top="17.5" Click="minimize"/>
+            <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="779" Canvas.Top="10" Click="button_Click"/>
+            <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="734" Canvas.Top="18" Click="minimize"/>
+            <Image x:Name="pausebutton_png" Height="38" Canvas.Left="18" Source="playbutton.png" Stretch="Fill" Canvas.Top="8" Width="38" MouseDown="pausebutton_png_MouseDown"/>
 
         </Canvas>
 

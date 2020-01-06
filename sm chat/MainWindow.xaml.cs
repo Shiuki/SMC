@@ -161,7 +161,7 @@ namespace sm_chat
             else
             {
                 MessageBox.Show("New update is available!");
-                Process.Start("https://smield.host/SMC.exe");
+                Process.Start("https://smield.host/SMC_api/setup.exe");
                 this.Close();
             }
 

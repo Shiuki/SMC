@@ -1,11 +1,14 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -41,6 +44,16 @@ namespace sm_chat
         {
             //donot touch this ~nya
             InitializeComponent();
+
+
+            var myTimer = new Timer();
+            // Tell the timer what to do when it elapses
+            myTimer.Elapsed += new ElapsedEventHandler(getsong);
+            // Set it to go off every five seconds
+            myTimer.Interval = 5000;
+            // And start it        
+            myTimer.Enabled = true;
+
         }
         string token = "";
         string name = "";
@@ -71,6 +84,7 @@ namespace sm_chat
             {
 
                 MessageBox.Show(Result);
+                set_settings();
             }
             catch { }
 
@@ -217,19 +231,33 @@ namespace sm_chat
         {
             handleplay();
         }
+        WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+
         private void handleplay()
         {
+
+            wplayer.URL = "https://kuronegai.radioca.st/;listen.pls?sid=1";
+
+          
             if (playing)
             {
                 BitmapImage image = new BitmapImage(new Uri("playbutton.png", UriKind.Relative));
                 pausebutton_png.Source = image;
                 playing = false;
+
+                wplayer.controls.stop();
+
+
+
             }
             else
             {
                 BitmapImage image = new BitmapImage(new Uri("pausebutton.png", UriKind.Relative));
                 pausebutton_png.Source = image;
                 playing = true;
+                wplayer.controls.play();
+              
+ 
             }
         }
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -323,7 +351,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     if(music == 1)
                     {
                         musicbtn.IsChecked = true;
-                        playing = true;
+                        playing = false;
                         handleplay();
                     }
                     int startup = Convert.ToInt32(Between(Settings, "startup: ", "?"));
@@ -365,7 +393,9 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     if (Result.StartsWith("login"))
                     {
                         MessageBox.Show("Login successful");
-                    }
+                    set_settings();
+                    tabControl.SelectedIndex = tabControl.Items.IndexOf(settingstab);
+                }
                     else
                     {
                         MessageBox.Show(Result);
@@ -408,6 +438,21 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             tabControl.SelectedIndex = tabControl.Items.IndexOf(logintab);
             logged_in = false;
 
+        }
+
+        private void songlabel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://www.youtube.com/results?search_query="+songlabel.Content);
+        }
+        private void getsong(object source, ElapsedEventArgs e)
+        {
+            using (WebClient wc = new WebClient())
+            {
+                var json = wc.DownloadString("https://kuronegai.radioca.st/stats?json=1");
+                dynamic data = JObject.Parse(json);
+                Application.Current.Dispatcher.Invoke(new Action(() => songlabel.Content = (data.songtitle)));
+                wc.Dispose();
+            }
         }
     }
 }

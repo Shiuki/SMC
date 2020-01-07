@@ -31,12 +31,12 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://smield.host/SMC_api/publish/</InstallUrl>
     <SupportUrl>https://smield.host/shortener/contact</SupportUrl>
-    <ProductName>SMC</ProductName>
+    <ProductName>Sm Mediocre Chat</ProductName>
     <PublisherName>Shield</PublisherName>
     <SuiteName>SMC</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -85,6 +85,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://timestamp.comodoca.com</ManifestTimestampUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>smclogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
@@ -191,6 +194,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="smclogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.0.1-ci914\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.1-ci914\build\MaterialDesignThemes.targets')" />

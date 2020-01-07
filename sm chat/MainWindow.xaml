@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize">
+        Title="Sm Mediocre Chat" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="20,41,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False">
             <TabControl.Background>
@@ -52,7 +52,7 @@
             <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="779" Canvas.Top="10" Click="button_Click"/>
             <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="734" Canvas.Top="18" Click="minimize"/>
             <Image x:Name="pausebutton_png" Height="38" Canvas.Left="18" Source="playbutton.png" Stretch="Fill" Canvas.Top="8" Width="38" MouseDown="pausebutton_png_MouseDown"/>
-            <Label x:Name="songlabel" Content="Currentlyplaying" Canvas.Left="61" Canvas.Top="16" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
+            <Label x:Name="songlabel" Content="Currentlyplaying→" Canvas.Left="61" Canvas.Top="16" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
 
         </Canvas>
 

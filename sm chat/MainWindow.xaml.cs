@@ -451,7 +451,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             logged_in = false;
 
         }
-
+        int count = 0;
         private void songlabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Process.Start("https://www.youtube.com/results?search_query="+songlabel.Content);
@@ -465,11 +465,21 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php", UriKind.Absolute));
             List<string> strings = Regex.Split(chat, "<br>").ToList();
-
+            //foreach (string ch in strings)
+            //{
+            //    Console.WriteLine(ch.Substring(0, ch.IndexOf('<')));
+            //}
             
-
-            Application.Current.Dispatcher.Invoke(new Action(() => listBox.ItemsSource = strings));
-            
+            Application.Current.Dispatcher.Invoke(new Action(() => listView.ItemsSource = strings));
+            if (count < listView.Items.Count)
+            {
+                Console.WriteLine(count);
+                Application.Current.Dispatcher.Invoke(new Action(() => listView.SelectedIndex = listView.Items.Count - 1));
+                Application.Current.Dispatcher.Invoke(new Action(() => listView.ScrollIntoView(listView.SelectedItem)));
+                count = listView.Items.Count;
+                Console.WriteLine(count + "jalk");
+            }
+          
         }
 
         public string WebClient_DownLoadString(Uri URI)
@@ -518,5 +528,55 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             }
             catch { }
         }
+
+     
+
+      
+
+        private void listView_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var item = (sender as ListView).SelectedItem;
+                if (item != null)
+                {
+                    if (item.ToString() != "")
+                    {
+                        Clipboard.SetText(item.ToString().Substring(item.ToString().IndexOf(':') + 2));
+
+                        Console.WriteLine(item.ToString().Substring(item.ToString().IndexOf(':') + 2));
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void listView_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var item = (sender as ListView).SelectedItem;
+                if (item != null)
+                {
+                    if (item.ToString() != "")
+                    {
+                        MatchCollection ms = Regex.Matches(item.ToString().Substring(item.ToString().IndexOf(':') + 2), @"(www.+|http.+)([\s]|$)");
+                        string testMatch = ms[0].Value.ToString();
+                       Process.Start(testMatch);
+
+                        Console.WriteLine(testMatch);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+    
     }
 }

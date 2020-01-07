@@ -25,10 +25,25 @@
             </TabItem>
             <TabItem x:Name="chattab" Header="Chat">
                 <Grid Background="#FF292626">
-                    <TextBox x:Name="messagefield" HorizontalAlignment="Left" Height="23" Margin="88,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Foreground="#FF5EC32E"/>
+                    <TextBox  x:Name="messagefield" HorizontalAlignment="Left" HorizontalScrollBarVisibility="Auto" Height="57" Margin="88,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Foreground="#FF5EC32E" MaxLength="2000"/>
                     <Button x:Name="button3" Content="Send" HorizontalAlignment="Left" Margin="600,279,0,0" VerticalAlignment="Top" Width="75" BorderBrush="#FF45B73A" Background="#FF56B73A" Click="button3_Click" IsDefault="True"/>
-                    <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDFFFFFF" IsSynchronizedWithCurrentItem="False" IsTextSearchEnabled="False"/>
                     <Label x:Name="label" Content="Message" HorizontalAlignment="Left" Margin="28,288,0,0" VerticalAlignment="Top" Foreground="#DD7AEC1C"/>
+                    <ListView x:Name="listView" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDD4D4D4" Background="#FF6AB953" IsTextSearchEnabled="False" PreviewMouseRightButtonUp="listView_PreviewMouseRightButtonUp" PreviewMouseLeftButtonUp="listView_PreviewMouseLeftButtonUp" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ToolTip="leftclick opens urls and right copies message." ScrollViewer.CanContentScroll="False">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Width="715">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                                
+                                                
+                            </GridView>
+                        </ListView.View>
+               
+                    </ListView>
 
                 </Grid>
             </TabItem>

@@ -310,7 +310,7 @@ namespace sm_chat
                 {
 
                     set_settings();
-                    tabControl.SelectedIndex = tabControl.Items.IndexOf(settingstab);
+                    tabControl.SelectedIndex = tabControl.Items.IndexOf(chattab);
                     logged_in = true;
                     return true;
                 }
@@ -404,7 +404,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                         MessageBox.Show("Login successful");
                     MessageBox.Show(Result);
                     set_settings();
-                    tabControl.SelectedIndex = tabControl.Items.IndexOf(settingstab);
+                    tabControl.SelectedIndex = tabControl.Items.IndexOf(chattab);
                 }
                     else
                     {
@@ -465,8 +465,8 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php", UriKind.Absolute));
             List<string> strings = Regex.Split(chat, "<br>").ToList();
-    
 
+            
 
             Application.Current.Dispatcher.Invoke(new Action(() => listBox.ItemsSource = strings));
             
@@ -511,7 +511,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             {
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                 Result = wc.UploadString(url, pars);
-                MessageBox.Show(Result);
+                messagefield.Text = "";
             }
             try
             {

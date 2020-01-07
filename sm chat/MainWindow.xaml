@@ -26,8 +26,8 @@
             <TabItem x:Name="chattab" Header="Chat">
                 <Grid Background="#FF292626">
                     <TextBox x:Name="messagefield" HorizontalAlignment="Left" Height="23" Margin="88,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Foreground="#FF5EC32E"/>
-                    <Button x:Name="button3" Content="Send" HorizontalAlignment="Left" Margin="600,279,0,0" VerticalAlignment="Top" Width="75" BorderBrush="#FF45B73A" Background="#FF56B73A" Click="button3_Click"/>
-                    <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDFFFFFF"/>
+                    <Button x:Name="button3" Content="Send" HorizontalAlignment="Left" Margin="600,279,0,0" VerticalAlignment="Top" Width="75" BorderBrush="#FF45B73A" Background="#FF56B73A" Click="button3_Click" IsDefault="True"/>
+                    <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDFFFFFF" IsSynchronizedWithCurrentItem="False" IsTextSearchEnabled="False"/>
                     <Label x:Name="label" Content="Message" HorizontalAlignment="Left" Margin="28,288,0,0" VerticalAlignment="Top" Foreground="#DD7AEC1C"/>
 
                 </Grid>
@@ -60,7 +60,7 @@
             <Rectangle Height="43" Canvas.Left="14" Stroke="#FF363232" Canvas.Top="5" Width="802" Fill="#FF363232" MouseDown="Rectangle_MouseDown"/>
             <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="779" Canvas.Top="10" Click="button_Click"/>
             <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="734" Canvas.Top="18" Click="minimize"/>
-            <Image x:Name="pausebutton_png" Height="38" Canvas.Left="18" Source="playbutton.png" Stretch="Fill" Canvas.Top="8" Width="38" MouseDown="pausebutton_png_MouseDown"/>
+            <Image x:Name="pausebutton_png" Height="38" Canvas.Left="18" Source="playbutton.png" Stretch="Fill" Canvas.Top="8" Width="38" MouseDown="pausebutton_png_MouseDown" Cursor="Hand"/>
             <Label x:Name="songlabel" Content="Currentlyplaying→" Canvas.Left="61" Canvas.Top="16" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
 
         </Canvas>

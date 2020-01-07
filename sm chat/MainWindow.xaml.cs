@@ -399,17 +399,18 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     key.SetValue("token", token);
                     key.SetValue("username", name);
                     key.Close();
-                    if (Result.StartsWith("login"))
-                    {
-                        MessageBox.Show("Login successful");
-                    MessageBox.Show(Result);
+                if (Result.StartsWith("login"))
+                {
+                    MessageBox.Show("Login successful");
                     set_settings();
                     tabControl.SelectedIndex = tabControl.Items.IndexOf(chattab);
                 }
-                    else
-                    {
-                        MessageBox.Show(Result);
-                    }
+                else {
+                    MessageBox.Show(Result);
+
+                  
+                }
+                    
                 }
 
 
@@ -463,7 +464,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             dynamic data = JObject.Parse(json);
             Application.Current.Dispatcher.Invoke(new Action(() => songlabel.Content = (data.songtitle).ToString()));
 
-            var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php", UriKind.Absolute));
+            var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php?token="+token+"&name="+name, UriKind.Absolute));
             List<string> strings = Regex.Split(chat, "<br>").ToList();
             //foreach (string ch in strings)
             //{

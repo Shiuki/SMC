@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -55,6 +56,7 @@ namespace sm_chat
             // And start it        
             myTimer.Enabled = true;
 
+        
         }
         string token = "";
         string name = "";
@@ -266,6 +268,7 @@ namespace sm_chat
             var url = "https://smield.host/SMC_api/settings.php?";
           
             string col = colorfield.Text;
+            color = colorfield.Text;
 
             int music = 0;
             int startup = 0;
@@ -363,12 +366,14 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     }
                     var converter = new System.Windows.Media.BrushConverter();
                     var brush = (Brush)converter.ConvertFromString(colorfield.Text);
+                    color = colorfield.Text;
                     colorlaber.Foreground = brush;
 
                 }
                 catch { }
             }
         }
+        string color = "";
         private void login()
         {
 
@@ -397,6 +402,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     if (Result.StartsWith("login"))
                     {
                         MessageBox.Show("Login successful");
+                    MessageBox.Show(Result);
                     set_settings();
                     tabControl.SelectedIndex = tabControl.Items.IndexOf(settingstab);
                 }
@@ -418,6 +424,8 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             {
                 var converter = new System.Windows.Media.BrushConverter();
                 var brush = (Brush)converter.ConvertFromString(colorfield.Text);
+                color = colorfield.Text;
+
                 colorlaber.Foreground = brush;
             }
             catch { }
@@ -450,13 +458,20 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
         }
         private void getsong(object source, ElapsedEventArgs e)
         {
-         
-                var json = WebClient_DownLoadString(new Uri("https://kuronegai.radioca.st/stats?json=1", UriKind.Absolute));
-                dynamic data = JObject.Parse(json);
-                Application.Current.Dispatcher.Invoke(new Action(() => songlabel.Content = (data.songtitle).ToString()));
-              
+
+            var json = WebClient_DownLoadString(new Uri("https://kuronegai.radioca.st/stats?json=1", UriKind.Absolute));
+            dynamic data = JObject.Parse(json);
+            Application.Current.Dispatcher.Invoke(new Action(() => songlabel.Content = (data.songtitle).ToString()));
+
+            var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php", UriKind.Absolute));
+            List<string> strings = Regex.Split(chat, "<br>").ToList();
+    
+
+
+            Application.Current.Dispatcher.Invoke(new Action(() => listBox.ItemsSource = strings));
             
         }
+
         public string WebClient_DownLoadString(Uri URI)
         {
             using (WebClient webclient = new WebClient())
@@ -484,6 +499,24 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     };
                 };
             }
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            string message = messagefield.Text;
+            var url = "https://smield.host/SMC_api/newmessage.php";
+            string pars = $"token={token}&username={name}&message={messagefield.Text}&color={color}";
+
+            using (WebClient wc = new WebClient())
+            {
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                Result = wc.UploadString(url, pars);
+                MessageBox.Show(Result);
+            }
+            try
+            {
+            }
+            catch { }
         }
     }
 }

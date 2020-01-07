@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
-        Title="Sm Mediocre Chat" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize">
+        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="20,41,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False">
             <TabControl.Background>
@@ -22,6 +22,15 @@
             </TabItem>
             <TabItem x:Name="defaulttab" Header="Defaultscr">
                 <Grid Background="#FF292626"/>
+            </TabItem>
+            <TabItem x:Name="chattab" Header="Chat">
+                <Grid Background="#FF292626">
+                    <TextBox x:Name="messagefield" HorizontalAlignment="Left" Height="23" Margin="88,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Foreground="#FF5EC32E"/>
+                    <Button x:Name="button3" Content="Send" HorizontalAlignment="Left" Margin="600,279,0,0" VerticalAlignment="Top" Width="75" BorderBrush="#FF45B73A" Background="#FF56B73A" Click="button3_Click"/>
+                    <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDFFFFFF"/>
+                    <Label x:Name="label" Content="Message" HorizontalAlignment="Left" Margin="28,288,0,0" VerticalAlignment="Top" Foreground="#DD7AEC1C"/>
+
+                </Grid>
             </TabItem>
             <TabItem x:Name="settingstab" Header="Settings">
                 <Grid Background="#FF292626">

@@ -36,7 +36,7 @@
     <SuiteName>SMC</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -197,6 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="smclogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="color-2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.0.1-ci914\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.1-ci914\build\MaterialDesignThemes.targets')" />

@@ -5,15 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize">
+        Title="SMC" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize" Icon="smclogo.ico">
     <Grid>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="20,41,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False">
-            <TabControl.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF9700FF" Offset="1"/>
-                </LinearGradientBrush>
-            </TabControl.Background>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="381" Margin="20,41,0,0" VerticalAlignment="Top" Width="757" BorderThickness="0" Padding="2" UseLayoutRounding="False" Background="#FF292626">
             <TabItem x:Name="loadtab" Header="Load">
                 <Grid Background="#FF292626" Loaded="Grid_Loaded"/>
             </TabItem>
@@ -38,11 +32,11 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                                
-                                                
+
+
                             </GridView>
                         </ListView.View>
-               
+
                     </ListView>
 
                 </Grid>
@@ -58,7 +52,7 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="logintab" Header="Login">
-                <Grid Background="#FF292626">
+                <Grid Background="#FF292626" Margin="0,4,0,-4">
                     <Button x:Name="loginbtn" Content="Login" HorizontalAlignment="Left" Margin="313,183,0,0" VerticalAlignment="Top" Width="75" Click="loginbtn_Click" IsDefault="True"/>
                     <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="288,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" CaretBrush="#FF62B73A" Foreground="#FF62B73A" GotKeyboardFocus="Username_GotKeyboardFocus" LostKeyboardFocus="Username_LostKeyboardFocus"/>
                     <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="288,127,0,0" VerticalAlignment="Top" Width="296" Foreground="#FF62B73A" CaretBrush="#FF62B73A" GotKeyboardFocus="Password_GotKeyboardFocus" LostKeyboardFocus="Password_LostKeyboardFocus"/>
@@ -75,8 +69,10 @@
             <Rectangle Height="43" Canvas.Left="14" Stroke="#FF363232" Canvas.Top="5" Width="802" Fill="#FF363232" MouseDown="Rectangle_MouseDown"/>
             <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="779" Canvas.Top="10" Click="button_Click"/>
             <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="734" Canvas.Top="18" Click="minimize"/>
-            <Image x:Name="pausebutton_png" Height="38" Canvas.Left="18" Source="playbutton.png" Stretch="Fill" Canvas.Top="8" Width="38" MouseDown="pausebutton_png_MouseDown" Cursor="Hand"/>
+            <Image x:Name="pausebutton_png" Height="38" Canvas.Left="17" Source="playbutton.png" Stretch="Fill" Canvas.Top="7" Width="38" MouseDown="pausebutton_png_MouseDown" Cursor="Hand"/>
             <Label x:Name="songlabel" Content="Currentlyplaying→" Canvas.Left="61" Canvas.Top="16" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
+            <Image x:Name="cog_png" Height="35" Canvas.Left="688" Source="cog.png" Stretch="Fill" Canvas.Top="8" Width="35" MouseUp="cog_png_MouseUp"/>
+            <Image x:Name="color_2_png" Height="47" Canvas.Left="571" Source="color-2.png" Stretch="Fill" Canvas.Top="1" Width="112" MouseUp="color_2_png_MouseUp"/>
 
         </Canvas>
 

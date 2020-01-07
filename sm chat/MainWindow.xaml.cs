@@ -55,8 +55,13 @@ namespace sm_chat
             myTimer.Interval = 5000;
             // And start it        
             myTimer.Enabled = true;
+            chattab.Visibility = Visibility.Hidden;
+            loadtab.Visibility = Visibility.Hidden;
+            settingstab.Visibility = Visibility.Hidden;
+            logintab.Visibility = Visibility.Hidden;
+            defaulttab.Visibility = Visibility.Hidden;
+            roomstab.Visibility = Visibility.Hidden;
 
-        
         }
         string token = "";
         string name = "";
@@ -404,6 +409,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     MessageBox.Show("Login successful");
                     set_settings();
                     tabControl.SelectedIndex = tabControl.Items.IndexOf(chattab);
+                    logged_in = true;
                 }
                 else {
                     MessageBox.Show(Result);
@@ -578,6 +584,30 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             }
         }
 
-    
+        private void cog_png_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (logged_in)
+            {
+                set_settings();
+                tabControl.SelectedIndex = tabControl.Items.IndexOf(settingstab);
+            }
+            else
+            {
+                MessageBox.Show("You must login/register before you can access settings");
+            }
+        }
+
+        private void color_2_png_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (logged_in)
+            {
+                set_settings();
+                tabControl.SelectedIndex = tabControl.Items.IndexOf(chattab);
+            }
+            else
+            {
+                MessageBox.Show("You must login/register before you can access chat");
+            }
+        }
     }
 }

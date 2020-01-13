@@ -1,5 +1,8 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
+using Notifications.Wpf;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -109,7 +112,7 @@ namespace sm_chat
 
         private void Username_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if(Username.Text=="")
+            if (Username.Text == "")
             {
                 namelabel.Visibility = Visibility.Visible;
             }
@@ -175,11 +178,11 @@ namespace sm_chat
 
         }
 
- 
+
 
         private void register_Click(object sender, RoutedEventArgs e)
         {
-            if(register.IsChecked is true)
+            if (register.IsChecked is true)
             {
                 namelabel.Content = "Name";
                 loginbtn.IsEnabled = false;
@@ -187,7 +190,7 @@ namespace sm_chat
                 Email.Visibility = Visibility.Visible;
                 registerbtn.Visibility = Visibility.Visible;
             }
-             else
+            else
             {
                 namelabel.Content = "Name or Email";
                 loginbtn.IsEnabled = true;
@@ -214,12 +217,17 @@ namespace sm_chat
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (playing)
+            {
+                handleplay();
+            }
+            this.WindowState = System.Windows.WindowState.Minimized;
+            this.Hide();
         }
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-          
+
         }
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
@@ -246,7 +254,7 @@ namespace sm_chat
 
             wplayer.URL = "https://kuronegai.radioca.st/;listen.pls?sid=1";
 
-          
+
             if (playing)
             {
                 BitmapImage image = new BitmapImage(new Uri("playbutton.png", UriKind.Relative));
@@ -264,14 +272,14 @@ namespace sm_chat
                 pausebutton_png.Source = image;
                 playing = true;
                 wplayer.controls.play();
-              
- 
+
+
             }
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             var url = "https://smield.host/SMC_api/settings.php?";
-          
+
             string col = colorfield.Text;
             color = colorfield.Text;
 
@@ -281,7 +289,7 @@ namespace sm_chat
             {
                 music = 1;
             }
-           
+
             if (onboot.IsChecked == true)
             {
                 startup = 1;
@@ -322,9 +330,9 @@ namespace sm_chat
 
             }
             catch { }
-        
-                return false;
-           
+
+            return false;
+
 
         }
         private void SetStartup()
@@ -341,7 +349,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         }
         private void set_settings()
-        { if (token != "" && name !="")
+        { if (token != "" && name != "")
             {
                 try
                 {
@@ -355,9 +363,9 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     }
                     //MessageBox.Show(Settings);
 
-                    colorfield.Text= Between(Settings, "color: ", " startup");
+                    colorfield.Text = Between(Settings, "color: ", " startup");
                     int music = Convert.ToInt32(Between(Settings, "music: ", " color"));
-                    if(music == 1)
+                    if (music == 1)
                     {
                         musicbtn.IsChecked = true;
                         playing = false;
@@ -383,27 +391,27 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
         {
 
 
-                //sending login request to the api
-                var url = "https://smield.host/SMC_api/index.php";
-                string pars = $"username={Username.Text}&password={Password.Password}";
+            //sending login request to the api
+            var url = "https://smield.host/SMC_api/index.php";
+            string pars = $"username={Username.Text}&password={Password.Password}";
 
-                using (WebClient wc = new WebClient())
-                {
-                    wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    Result = wc.UploadString(url, pars);
-                }
-                try
-                {
+            using (WebClient wc = new WebClient())
+            {
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                Result = wc.UploadString(url, pars);
+            }
+            try
+            {
 
-                    token = Between(Result, "token:", "-");
-                    name = Between(Result, "name:", "?");
+                token = Between(Result, "token:", "-");
+                name = Between(Result, "name:", "?");
 
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SMC");
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SMC");
 
-                    //storing the values  
-                    key.SetValue("token", token);
-                    key.SetValue("username", name);
-                    key.Close();
+                //storing the values  
+                key.SetValue("token", token);
+                key.SetValue("username", name);
+                key.Close();
                 if (Result.StartsWith("login"))
                 {
                     MessageBox.Show("Login successful");
@@ -414,15 +422,15 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                 else {
                     MessageBox.Show(Result);
 
-                  
-                }
-                    
+
                 }
 
+            }
 
-                catch { MessageBox.Show(Result); }
-            
-           
+
+            catch { MessageBox.Show(Result); }
+
+
         }
 
         private void colorfield_TextChanged(object sender, TextChangedEventArgs e)
@@ -453,7 +461,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             token = "";
             name = "";
 
-            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\SMC",false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\SMC", false);
             tabControl.SelectedIndex = tabControl.Items.IndexOf(logintab);
             logged_in = false;
 
@@ -461,7 +469,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
         int count = 0;
         private void songlabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://www.youtube.com/results?search_query="+songlabel.Content);
+            Process.Start("https://www.youtube.com/results?search_query=" + songlabel.Content);
         }
         private void getsong(object source, ElapsedEventArgs e)
         {
@@ -470,13 +478,13 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             dynamic data = JObject.Parse(json);
             Application.Current.Dispatcher.Invoke(new Action(() => songlabel.Content = (data.songtitle).ToString()));
 
-            var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php?token="+token+"&name="+name, UriKind.Absolute));
+            var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php?token=" + token + "&name=" + name, UriKind.Absolute));
             List<string> strings = Regex.Split(chat, "<br>").ToList();
             //foreach (string ch in strings)
             //{
             //    Console.WriteLine(ch.Substring(0, ch.IndexOf('<')));
             //}
-            
+
             Application.Current.Dispatcher.Invoke(new Action(() => listView.ItemsSource = strings));
             if (count < listView.Items.Count)
             {
@@ -485,10 +493,35 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                 Application.Current.Dispatcher.Invoke(new Action(() => listView.ScrollIntoView(listView.SelectedItem)));
                 count = listView.Items.Count;
                 Console.WriteLine(count + "jalk");
-            }
-          
-        }
+                if (logged_in && this.WindowState == System.Windows.WindowState.Minimized)
+                {
+                    var notificationManager = new NotificationManager();
+                    string fullmsg = listView.Items[count - 2].ToString();
+                    notificationManager.Show(new NotificationContent
+                    {
+                        Title = "New message!",
+                        Message = fullmsg,
 
+                        Type = NotificationType.Information
+                    }, onClick: () => waaf());
+
+                }
+            }
+
+        }
+        private void waaf()
+        {
+            this.Show();
+            if (musicbtn.IsChecked == true)
+            {
+                if (!playing)
+                {
+                    handleplay();
+                }
+
+            }
+            this.WindowState = System.Windows.WindowState.Normal;
+        }
         public string WebClient_DownLoadString(Uri URI)
         {
             using (WebClient webclient = new WebClient())
@@ -536,9 +569,9 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             catch { }
         }
 
-     
 
-      
+
+
 
         private void listView_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -572,7 +605,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     {
                         MatchCollection ms = Regex.Matches(item.ToString().Substring(item.ToString().IndexOf(':') + 2), @"(www.+|http.+)([\s]|$)");
                         string testMatch = ms[0].Value.ToString();
-                       Process.Start(testMatch);
+                        Process.Start(testMatch);
 
                         Console.WriteLine(testMatch);
                     }
@@ -608,6 +641,49 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             {
                 MessageBox.Show("You must login/register before you can access chat");
             }
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private async void button5_Click(object sender, RoutedEventArgs e)
+        {
+            //select file to upload
+            try
+            {
+                FileData fileData = await CrossFilePicker.Current.PickFile();
+                if (fileData == null)
+                    return; // user canceled file picking
+
+                string fileName = fileData.FileName;
+                string contents = System.Text.Encoding.UTF8.GetString(fileData.DataArray);
+
+                System.Console.WriteLine("File name chosen: " + fileName);
+              
+
+
+                using (System.Net.WebClient Client = new System.Net.WebClient())
+                {
+                    Client.UploadFileCompleted += new UploadFileCompletedEventHandler(UploadFileCallback);
+                    Client.UploadFileAsync(new Uri("https://smield.host/SMC_api/upload.php", UriKind.Absolute), fileData.FilePath);
+
+           
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("Exception choosing file: " + ex.ToString());
+            }
+
+        }
+        private static void UploadFileCallback(Object sender, UploadFileCompletedEventArgs e)
+        {
+            string reply = System.Text.Encoding.UTF8.GetString(e.Result);
+            Console.WriteLine("uploaded: " + reply);
         }
     }
 }

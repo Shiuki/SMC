@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
         xmlns:local="clr-namespace:sm_chat"
         mc:Ignorable="d"
         Title="SMC" Height="450" Width="800" Background="#FF292626" Foreground="Gainsboro" WindowStyle="None" ResizeMode="NoResize" Icon="smclogo.ico">
@@ -21,9 +22,27 @@
                 <Grid Background="#FF292626">
                     <TextBox  x:Name="messagefield" HorizontalAlignment="Left" HorizontalScrollBarVisibility="Auto" Height="57" Margin="88,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Foreground="#FF5EC32E" MaxLength="2000"/>
                     <Button x:Name="button3" Content="Send" HorizontalAlignment="Left" Margin="600,279,0,0" VerticalAlignment="Top" Width="75" BorderBrush="#FF45B73A" Background="#FF56B73A" Click="button3_Click" IsDefault="True"/>
-                    <Label x:Name="label" Content="Message" HorizontalAlignment="Left" Margin="28,288,0,0" VerticalAlignment="Top" Foreground="#DD7AEC1C"/>
-                    <ListView x:Name="listView" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDD4D4D4" Background="#FF6AB953" IsTextSearchEnabled="False" PreviewMouseRightButtonUp="listView_PreviewMouseRightButtonUp" PreviewMouseLeftButtonUp="listView_PreviewMouseLeftButtonUp" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ToolTip="leftclick opens urls and right copies message." ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" IsSynchronizedWithCurrentItem="True">
+                    <Label x:Name="label" Content="Message" HorizontalAlignment="Left" Margin="20,288,0,0" VerticalAlignment="Top" Foreground="#DD7AEC1C"/>
+                    <ListView x:Name="listView" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDD4D4D4" Background="#FF6AB953" IsTextSearchEnabled="False" PreviewMouseRightButtonUp="listView_PreviewMouseRightButtonUp" PreviewMouseLeftButtonUp="listView_PreviewMouseLeftButtonUp" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ToolTip="leftclick opens urls and right copies message." ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                                <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <ListView.View>
+                           
                             <GridView AllowsColumnReorder="False">
                                 <GridViewColumn Width="715">
                                     <GridViewColumn.CellTemplate>
@@ -38,17 +57,19 @@
                         </ListView.View>
 
                     </ListView>
+                    <Button x:Name="button5" Content="File" HorizontalAlignment="Left" Margin="8,313,0,0" VerticalAlignment="Top" Width="75" Background="#FFE6DC0A" BorderBrush="#FFB7953A" Click="button5_Click"/>
 
                 </Grid>
             </TabItem>
             <TabItem x:Name="settingstab" Header="Settings">
                 <Grid Background="#FF292626">
-                    <Button x:Name="button1" Content="Save" HorizontalAlignment="Left" Margin="276,258,0,0" VerticalAlignment="Top" Width="75" Background="#FF62B73A" Click="button1_Click"/>
+                    <Button x:Name="button1" Content="Save" HorizontalAlignment="Left" Margin="276,258,0,0" VerticalAlignment="Top" Width="75" Background="#FF62B73A" Click="button1_Click" BorderBrush="#FF3AB745"/>
                     <Label x:Name="colorlaber" Content="Name color (hex like #ffce0f )" HorizontalAlignment="Left" Margin="135,51,0,0" VerticalAlignment="Top" Foreground="#FF62B73A"/>
                     <CheckBox x:Name="onboot" Content="Start on boot" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="#FF62B73A" Checked="onboot_Checked" Unchecked="onboot_Unchecked"/>
                     <CheckBox x:Name="musicbtn" Content="start radio on program launch" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Foreground="#FF62B73A"/>
                     <TextBox x:Name="colorfield" HorizontalAlignment="Left" Height="23" Margin="10,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="#FF62B73A" TextChanged="colorfield_TextChanged"/>
-                    <Button x:Name="button2" Content="Log Out" HorizontalAlignment="Left" Margin="652,313,0,0" VerticalAlignment="Top" Width="91" Background="#FFB73A3A" Click="button2_Click"/>
+                    <Button x:Name="button2" Content="Log Out" HorizontalAlignment="Left" Margin="652,313,0,0" VerticalAlignment="Top" Width="91" Background="#FFB73A3A" Click="button2_Click" BorderBrush="#FFB73A3A"/>
+                    <Button x:Name="button4" Content="Exit" HorizontalAlignment="Left" Margin="661,269,0,0" VerticalAlignment="Top" Width="75" Background="#FFB73A3A" Click="button4_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="logintab" Header="Login">
@@ -71,10 +92,13 @@
             <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="734" Canvas.Top="18" Click="minimize"/>
             <Image x:Name="pausebutton_png" Height="38" Canvas.Left="17" Source="playbutton.png" Stretch="Fill" Canvas.Top="7" Width="38" MouseDown="pausebutton_png_MouseDown" Cursor="Hand"/>
             <Label x:Name="songlabel" Content="Currentlyplaying→" Canvas.Left="61" Canvas.Top="16" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
-            <Image x:Name="cog_png" Height="35" Canvas.Left="688" Source="cog.png" Stretch="Fill" Canvas.Top="8" Width="35" MouseUp="cog_png_MouseUp"/>
-            <Image x:Name="color_2_png" Height="47" Canvas.Left="571" Source="color-2.png" Stretch="Fill" Canvas.Top="1" Width="112" MouseUp="color_2_png_MouseUp"/>
+            <Image x:Name="cog_png" Height="35" Canvas.Left="688" Source="cog.png" Stretch="Fill" Canvas.Top="8" Width="35" MouseUp="cog_png_MouseUp" Cursor="Hand"/>
+            <Image x:Name="color_2_png" Height="47" Canvas.Left="571" Source="color-2.png" Stretch="Fill" Canvas.Top="1" Width="112" MouseUp="color_2_png_MouseUp" Cursor="Hand"/>
 
         </Canvas>
 
     </Grid>
+    
+    
+    
 </Window>

@@ -863,12 +863,12 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                 wresp = wr.GetResponse();
                 Stream stream2 = wresp.GetResponseStream();
                 StreamReader reader2 = new StreamReader(stream2);
-                Console.WriteLine(string.Format("{0}", reader2.ReadToEnd()));
-                if (IsImageUrl(string.Format("{0}", reader2.ReadToEnd())))
-                {
-                    messagefield.Text = messagefield.Text + string.Format("{0}", reader2.ReadToEnd());
+                string imageurlkkk = (string.Format("{0}", reader2.ReadToEnd()));
+                Clipboard.SetText(imageurlkkk);
+                messagefield.Text = imageurlkkk;
 
-                }
+
+
                 }
             catch (Exception ex)
             {

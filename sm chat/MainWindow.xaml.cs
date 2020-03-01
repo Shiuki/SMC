@@ -867,6 +867,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                 if (IsImageUrl(string.Format("{0}", reader2.ReadToEnd())))
                 {
                     messagefield.Text = messagefield.Text + string.Format("{0}", reader2.ReadToEnd());
+
                 }
                 }
             catch (Exception ex)

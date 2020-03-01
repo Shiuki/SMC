@@ -5,7 +5,9 @@ using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -64,6 +66,10 @@ namespace sm_chat
             logintab.Visibility = Visibility.Hidden;
             defaulttab.Visibility = Visibility.Hidden;
             roomstab.Visibility = Visibility.Hidden;
+            image.Visibility = Visibility.Hidden;
+            imageclose.Visibility = Visibility.Hidden;
+            openimage.Visibility = Visibility.Hidden;
+
 
         }
         string token = "";
@@ -486,6 +492,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             //}
 
             Application.Current.Dispatcher.Invoke(new Action(() => listView.ItemsSource = strings));
+
             if (count < listView.Items.Count)
             {
                 Console.WriteLine(count);
@@ -507,8 +514,47 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                 }
             }
+    
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void waaf()
         {
             this.Show();
@@ -582,6 +628,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                 {
                     if (item.ToString() != "")
                     {
+                       
                         Clipboard.SetText(item.ToString().Substring(item.ToString().IndexOf(':') + 2));
 
                         Console.WriteLine(item.ToString().Substring(item.ToString().IndexOf(':') + 2));
@@ -593,7 +640,17 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             }
         }
-
+        static bool IsImageUrl(string URL)
+        {
+            var req = (HttpWebRequest)HttpWebRequest.Create(URL);
+            req.Method = "HEAD";
+            using (var resp = req.GetResponse())
+            {
+                return resp.ContentType.ToLower(CultureInfo.InvariantCulture)
+                           .StartsWith("image/");
+            }
+        }
+        string latestimage = "";
         private void listView_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -605,9 +662,51 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     {
                         MatchCollection ms = Regex.Matches(item.ToString().Substring(item.ToString().IndexOf(':') + 2), @"(www.+|http.+)([\s]|$)");
                         string testMatch = ms[0].Value.ToString();
-                        Process.Start(testMatch);
+                        if (IsImageUrl(testMatch))
+                        {
 
-                        Console.WriteLine(testMatch);
+
+
+
+
+
+                            latestimage = testMatch;
+                            imageclose.Visibility = Visibility.Visible;
+                            openimage.Visibility = Visibility.Visible;
+                            image.Visibility = Visibility.Visible;
+                            var imagex = new BitmapImage();
+                            int BytesToRead = 100;
+
+                            WebRequest request = WebRequest.Create(new Uri(testMatch, UriKind.Absolute));
+                            request.Timeout = -1;
+                            WebResponse response = request.GetResponse();
+                            Stream responseStream = response.GetResponseStream();
+                            BinaryReader reader = new BinaryReader(responseStream);
+                            MemoryStream memoryStream = new MemoryStream();
+
+                            byte[] bytebuffer = new byte[BytesToRead];
+                            int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+
+                            while (bytesRead > 0)
+                            {
+                                memoryStream.Write(bytebuffer, 0, bytesRead);
+                                bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                            }
+
+                            imagex.BeginInit();
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            imagex.StreamSource = memoryStream;
+                            imagex.EndInit();
+
+                            image.Source = imagex;
+                        }
+                        else
+                        {
+                            Process.Start(testMatch);
+
+                            Console.WriteLine(testMatch);
+                        }
                     }
                 }
             }
@@ -662,15 +761,35 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                 System.Console.WriteLine("File name chosen: " + fileName);
               
+                string url = "https://smield.host/SMC_api/upload.php";
+
+                //using (System.Net.WebClient Client = new System.Net.WebClient())
+                //{
+                //    Client.UploadFileCompleted += new UploadFileCompletedEventHandler(UploadFileCallback);
+                //    byte[] response = Client.UploadFile(new Uri("https://smield.host/SMC_api/upload.php", UriKind.Absolute), fileData.FilePath);
+                //    MessageBox.Show(Client.Encoding.GetString(response));
+
+                //}
 
 
-                using (System.Net.WebClient Client = new System.Net.WebClient())
-                {
-                    Client.UploadFileCompleted += new UploadFileCompletedEventHandler(UploadFileCallback);
-                    Client.UploadFileAsync(new Uri("https://smield.host/SMC_api/upload.php", UriKind.Absolute), fileData.FilePath);
 
-           
-                }
+
+
+
+                NameValueCollection headers = new NameValueCollection();
+                headers.Add("Cookie", "name=value;");
+                headers.Add("Referer", "http://google.com");
+                NameValueCollection nvc = new NameValueCollection();
+                nvc.Add("name", "value");
+
+                HttpUploadFile(url, new string[] { fileData.FilePath }, new string[] { "upfile" }, new string[] { "application/octet-stream", "image/jpeg" }, nvc, headers);
+
+
+
+
+
+
+
 
 
             }
@@ -680,10 +799,103 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             }
 
         }
+        public  void HttpUploadFile(string url, string[] file, string[] paramName, string[] contentType, NameValueCollection nvc, NameValueCollection headerItems)
+        {
+            //log.Debug(string.Format("Uploading {0} to {1}", file, url));
+            string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+
+            HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(url);
+
+            foreach (string key in headerItems.Keys)
+            {
+                if (key == "Referer")
+                {
+                    wr.Referer = headerItems[key];
+                }
+                else
+                {
+                    wr.Headers.Add(key, headerItems[key]);
+                }
+            }
+
+            wr.ContentType = "multipart/form-data; boundary=" + boundary;
+            wr.Method = "POST";
+            wr.KeepAlive = true;
+            wr.Credentials = System.Net.CredentialCache.DefaultCredentials;
+
+            Stream rs = wr.GetRequestStream();
+
+            string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+            foreach (string key in nvc.Keys)
+            {
+                rs.Write(boundarybytes, 0, boundarybytes.Length);
+                string formitem = string.Format(formdataTemplate, key, nvc[key]);
+                byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                rs.Write(formitembytes, 0, formitembytes.Length);
+            }
+            rs.Write(boundarybytes, 0, boundarybytes.Length);
+
+            string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+            string header = "";
+
+            for (int i = 0; i < file.Count(); i++)
+            {
+                header = string.Format(headerTemplate, paramName[i], System.IO.Path.GetFileName(file[i]), contentType[i]);
+                byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+                rs.Write(headerbytes, 0, headerbytes.Length);
+
+                FileStream fileStream = new FileStream(file[i], FileMode.Open, FileAccess.Read);
+                byte[] buffer = new byte[4096];
+                int bytesRead = 0;
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                {
+                    rs.Write(buffer, 0, bytesRead);
+                }
+                fileStream.Close();
+                rs.Write(boundarybytes, 0, boundarybytes.Length);
+            }
+            rs.Close();
+
+            WebResponse wresp = null;
+            try
+            {
+                wresp = wr.GetResponse();
+                Stream stream2 = wresp.GetResponseStream();
+                StreamReader reader2 = new StreamReader(stream2);
+                Console.WriteLine(string.Format("{0}", reader2.ReadToEnd()));
+                if (IsImageUrl(string.Format("{0}", reader2.ReadToEnd())))
+                {
+                    messagefield.Text = messagefield.Text + string.Format("{0}", reader2.ReadToEnd());
+                }
+                }
+            catch (Exception ex)
+            {
+                //log.Error("Error uploading file", ex);
+                wresp.Close();
+                wresp = null;
+            }
+            finally
+            {
+                wr = null;
+            }
+        }
         private static void UploadFileCallback(Object sender, UploadFileCompletedEventArgs e)
         {
             string reply = System.Text.Encoding.UTF8.GetString(e.Result);
             Console.WriteLine("uploaded: " + reply);
+        }
+
+        private void imageclose_Click(object sender, RoutedEventArgs e)
+        {
+            image.Visibility = Visibility.Hidden;
+            imageclose.Visibility = Visibility.Hidden;
+            openimage.Visibility = Visibility.Hidden;
+        }
+
+        private void openimage_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(latestimage);
         }
     }
 }

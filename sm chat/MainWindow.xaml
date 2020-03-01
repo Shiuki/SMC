@@ -23,7 +23,7 @@
                     <TextBox  x:Name="messagefield" HorizontalAlignment="Left" HorizontalScrollBarVisibility="Auto" Height="57" Margin="88,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Foreground="#FF5EC32E" MaxLength="2000"/>
                     <Button x:Name="button3" Content="Send" HorizontalAlignment="Left" Margin="600,279,0,0" VerticalAlignment="Top" Width="75" BorderBrush="#FF45B73A" Background="#FF56B73A" Click="button3_Click" IsDefault="True"/>
                     <Label x:Name="label" Content="Message" HorizontalAlignment="Left" Margin="20,288,0,0" VerticalAlignment="Top" Foreground="#DD7AEC1C"/>
-                    <ListView x:Name="listView" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDD4D4D4" Background="#FF6AB953" IsTextSearchEnabled="False" PreviewMouseRightButtonUp="listView_PreviewMouseRightButtonUp" PreviewMouseLeftButtonUp="listView_PreviewMouseLeftButtonUp" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ToolTip="leftclick opens urls and right copies message." ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
+                    <ListView x:Name="listView" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="733" Foreground="#DDD4D4D4" Background="#FF6AB953" IsTextSearchEnabled="False" PreviewMouseRightButtonUp="listView_PreviewMouseRightButtonUp" PreviewMouseLeftButtonUp="listView_PreviewMouseLeftButtonUp" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ToolTip="leftclick opens urls/images and right copies message." ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="Background" Value="Transparent" />
@@ -42,12 +42,14 @@
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
-                           
+
                             <GridView AllowsColumnReorder="False">
                                 <GridViewColumn Width="715">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextOptions.TextFormattingMode="Display" IsHyphenationEnabled="True" IsManipulationEnabled="True" 
+                                                       
+                                                       />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -57,7 +59,7 @@
                         </ListView.View>
 
                     </ListView>
-                    <Button x:Name="button5" Content="File" HorizontalAlignment="Left" Margin="8,313,0,0" VerticalAlignment="Top" Width="75" Background="#FFE6DC0A" BorderBrush="#FFB7953A" Click="button5_Click"/>
+                    <Button x:Name="button5" Content="Image" HorizontalAlignment="Left" Margin="8,313,0,0" VerticalAlignment="Top" Width="75" Background="#FFE6DC0A" BorderBrush="#FFB7953A" Click="button5_Click"/>
 
                 </Grid>
             </TabItem>
@@ -96,9 +98,12 @@
             <Image x:Name="color_2_png" Height="47" Canvas.Left="571" Source="color-2.png" Stretch="Fill" Canvas.Top="1" Width="112" MouseUp="color_2_png_MouseUp" Cursor="Hand"/>
 
         </Canvas>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="275" Margin="130,92,0,0" VerticalAlignment="Top" Width="544"/>
+        <Button x:Name="imageclose" Content="Close" HorizontalAlignment="Left" Margin="715,408,0,0" VerticalAlignment="Top" Width="75" Click="imageclose_Click" Background="#FFB7673A"/>
+        <Button x:Name="openimage" Content="Open in browser" HorizontalAlignment="Left" Margin="570,408,0,0" VerticalAlignment="Top" Width="140" Background="#FF3AB762" Click="openimage_Click"/>
 
     </Grid>
-    
-    
-    
+
+
+
 </Window>

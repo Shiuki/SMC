@@ -91,11 +91,11 @@
         <Canvas HorizontalAlignment="Left" Height="46" Margin="-14,-5,0,0" VerticalAlignment="Top" Width="814" Focusable="True">
             <Rectangle Height="43" Canvas.Left="14" Stroke="#FF363232" Canvas.Top="5" Width="802" Fill="#FF363232" MouseDown="Rectangle_MouseDown"/>
             <Button x:Name="button" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" Background="#FFB73A3A" BorderThickness="0" IsTabStop="False" Canvas.Left="779" Canvas.Top="10" Click="button_Click"/>
-            <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="732" Canvas.Top="18" Click="minimize"/>
+            <Button x:Name="button_Copy" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="15" Background="#FFEEEE0D" BorderThickness="0" IsTabStop="False" Canvas.Left="734" Canvas.Top="18" Click="minimize"/>
             <Image x:Name="pausebutton_png" Height="38" Canvas.Left="17" Source="playbutton.png" Stretch="Fill" Canvas.Top="7" Width="38" MouseDown="pausebutton_png_MouseDown" Cursor="Hand"/>
-            <Label x:Name="songlabel" Content="Currentlyplaying→" Canvas.Left="61" Canvas.Top="16" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
-            <Image x:Name="cog_png" Height="35" Canvas.Left="676" Source="cog.png" Stretch="Fill" Canvas.Top="7" Width="35" MouseUp="cog_png_MouseUp" Cursor="Hand"/>
-            <Image x:Name="color_2_png" Height="41" Canvas.Left="568" Source="color-2.png" Stretch="Fill" Canvas.Top="4" Width="92" MouseUp="color_2_png_MouseUp" Cursor="Hand"/>
+            <Label x:Name="songlabel" Content="Currentlyplaying→" Canvas.Left="61" Canvas.Top="15" Foreground="#FF62B73A" Cursor="Hand" MouseDown="songlabel_MouseDown"/>
+            <Image x:Name="cog_png" Height="35" Canvas.Left="688" Source="cog.png" Stretch="Fill" Canvas.Top="8" Width="35" MouseUp="cog_png_MouseUp" Cursor="Hand"/>
+            <Image x:Name="color_2_png" Height="41" Canvas.Left="579" Source="color-2.png" Stretch="Fill" Canvas.Top="4" Width="92" MouseUp="color_2_png_MouseUp" Cursor="Hand"/>
 
         </Canvas>
         <Rectangle x:Name="recc" HorizontalAlignment="Left" Height="407" Margin="0,43,0,0" Stroke="#FF363232" VerticalAlignment="Top" Width="800" Fill="#F2363232" Visibility="Hidden" MouseLeftButtonUp="recc_MouseLeftButtonUp" MouseEnter="recc_MouseEnter" MouseLeave="recc_MouseLeave"/>

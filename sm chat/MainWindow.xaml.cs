@@ -56,8 +56,8 @@ namespace sm_chat
             var myTimer = new Timer();
             // Tell the timer what to do when it elapses
             myTimer.Elapsed += new ElapsedEventHandler(getsong);
-            // Set it to go off every five seconds
-            myTimer.Interval = 5000;
+            // Set it to go off every two seconds
+            myTimer.Interval = 2000;
             // And start it        
             myTimer.Enabled = true;
             chattab.Visibility = Visibility.Hidden;
@@ -228,7 +228,7 @@ namespace sm_chat
                 handleplay();
             }
             this.WindowState = System.Windows.WindowState.Minimized;
-            this.Hide();
+            this.Close();
         }
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -373,9 +373,12 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                     int music = Convert.ToInt32(Between(Settings, "music: ", " color"));
                     if (music == 1)
                     {
-                        musicbtn.IsChecked = true;
-                        playing = false;
-                        handleplay();
+                        if (!playing)
+                        {
+                            musicbtn.IsChecked = true;
+                            playing = false;
+                            handleplay();
+                        }
                     }
                     int startup = Convert.ToInt32(Between(Settings, "startup: ", "?"));
                     if (startup == 1)
@@ -664,14 +667,9 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                         string testMatch = ms[0].Value.ToString();
                         if (IsImageUrl(testMatch))
                         {
-
-
-
-
-
-
                             latestimage = testMatch;
                             imageclose.Visibility = Visibility.Visible;
+                            recc.Visibility = Visibility.Visible;
                             openimage.Visibility = Visibility.Visible;
                             image.Visibility = Visibility.Visible;
                             var imagex = new BitmapImage();
@@ -700,13 +698,42 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
                             imagex.EndInit();
 
                             image.Source = imagex;
+                            return;
                         }
+
+                        //if(testMatch.EndsWith(".mov"))
+                        //{
+                        //    var url = testMatch;
+                        //    mediaElement.Visibility = Visibility.Visible;
+
+                        //    mediaElement.Source = new Uri(url);
+                        //    mediaElement.Play();
+                            
+                        //}
+
+                        //if(testMatch.StartsWith("https://www.youtube.com/watch?v="))
+                        //{
+                        //    string videoid = testMatch.Replace("https://www.youtube.com/watch?v=","");
+
+                        //    yiffbrowser.Source = new Uri($"https://www.youtube-nocookie.com/embed/{videoid}?rel=0&amp;showinfo=0");
+                        //    yiffbrowser.Visibility = Visibility.Visible;
+                        //    return;
+                        //}
+                        //if (testMatch.StartsWith("https://youtu.be/"))
+                        //{
+                        //    string videoid = testMatch.Replace("https://youtu.be/", "");
+
+                        //    yiffbrowser.Source = new Uri($"https://www.youtube-nocookie.com/embed/{videoid}?rel=0&amp;showinfo=0");
+                        //    yiffbrowser.Visibility = Visibility.Visible;
+                        //    return;
+                        //}
                         else
                         {
                             Process.Start(testMatch);
 
                             Console.WriteLine(testMatch);
                         }
+                        
                     }
                 }
             }
@@ -892,11 +919,56 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             image.Visibility = Visibility.Hidden;
             imageclose.Visibility = Visibility.Hidden;
             openimage.Visibility = Visibility.Hidden;
+            //yiffbrowser.Visibility = Visibility.Hidden;
+            recc.Visibility = Visibility.Hidden;
+            //mediaElement.Visibility = Visibility.Hidden;
+
         }
 
         private void openimage_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(latestimage);
+        }
+
+        private void image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(latestimage);
+            image.Visibility = Visibility.Hidden;
+            imageclose.Visibility = Visibility.Hidden;
+            openimage.Visibility = Visibility.Hidden;
+            recc.Visibility = Visibility.Hidden;
+            //yiffbrowser.Visibility = Visibility.Hidden;
+            //mediaElement.Visibility = Visibility.Hidden;
+
+        }
+
+        private void image_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void recc_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            image.Visibility = Visibility.Hidden;
+            imageclose.Visibility = Visibility.Hidden;
+            openimage.Visibility = Visibility.Hidden;
+            recc.Visibility = Visibility.Hidden;
+            //mediaElement.Visibility = Visibility.Hidden;
+            recc.Opacity = 100;
+            //yiffbrowser.Visibility = Visibility.Hidden;
+        }
+
+        private void recc_MouseEnter(object sender, MouseEventArgs e)
+        {
+           Console.WriteLine("hover");
+            recc.Fill = new SolidColorBrush(Color.FromArgb(70,54,50,50));
+
+        }
+
+        private void recc_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("unhover");
+            recc.Fill = new SolidColorBrush(Color.FromArgb(99, 54, 50, 50));
         }
     }
 }

@@ -89,7 +89,7 @@ namespace sm_chat
         private void registerbtn_Click(object sender, RoutedEventArgs e)
         {
             //sending register to the api
-            var url = "https://smield.host/SMC_api/insert.php?";
+            var url = "https://paws.eu.org/SMC_api/insert.php?";
             string pars = $"username={Username.Text}&password={Password.Password}&email={Email.Text}";
 
             using (WebClient wc = new WebClient())
@@ -140,7 +140,7 @@ namespace sm_chat
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
 
-            string Uri = $"https://smield.host/SMC_api/ping?{version}";
+            string Uri = $"https://paws.eu.org/SMC_api/ping?{version}";
 
             using (WebClient wc = new WebClient())
             {
@@ -178,7 +178,7 @@ namespace sm_chat
             else
             {
                 MessageBox.Show("New update is available!");
-                Process.Start("https://smield.host/SMC_api/setup.exe");
+                Process.Start("https://paws.eu.org/SMC_api/setup.exe");
                 this.Close();
             }
 
@@ -284,7 +284,7 @@ namespace sm_chat
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            var url = "https://smield.host/SMC_api/settings.php?";
+            var url = "https://paws.eu.org/SMC_api/settings.php?";
 
             string col = colorfield.Text;
             color = colorfield.Text;
@@ -315,7 +315,7 @@ namespace sm_chat
         }
         private bool autologin()
         {
-            var url = "https://smield.host/SMC_api/index.php";
+            var url = "https://paws.eu.org/SMC_api/index.php";
             string pars = $"username={name}&password={token}&usingtoken=true";
 
             using (WebClient wc = new WebClient())
@@ -359,7 +359,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             {
                 try
                 {
-                    var url2 = "https://smield.host/SMC_api/settings.php?";
+                    var url2 = "https://paws.eu.org/SMC_api/settings.php?";
                     string pars2 = $"username={name}&cog={token}&update=no";
 
                     using (WebClient wc2 = new WebClient())
@@ -401,7 +401,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
 
             //sending login request to the api
-            var url = "https://smield.host/SMC_api/index.php";
+            var url = "https://paws.eu.org/SMC_api/index.php";
             string pars = $"username={Username.Text}&password={Password.Password}";
 
             using (WebClient wc = new WebClient())
@@ -487,7 +487,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
             dynamic data = JObject.Parse(json);
             Application.Current.Dispatcher.Invoke(new Action(() => songlabel.Content = (data.songtitle).ToString()));
 
-            var chat = WebClient_DownLoadString(new Uri("https://smield.host/SMC_api/chat.php?token=" + token + "&name=" + name, UriKind.Absolute));
+            var chat = WebClient_DownLoadString(new Uri("https://paws.eu.org/SMC_api/chat.php?token=" + token + "&name=" + name, UriKind.Absolute));
             List<string> strings = Regex.Split(chat, "<br>").ToList();
             //foreach (string ch in strings)
             //{
@@ -603,7 +603,7 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             string message = messagefield.Text;
-            var url = "https://smield.host/SMC_api/newmessage.php";
+            var url = "https://paws.eu.org/SMC_api/newmessage.php";
             string pars = $"token={token}&username={name}&message={messagefield.Text}&color={color}";
 
             using (WebClient wc = new WebClient())
@@ -788,12 +788,12 @@ System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                 System.Console.WriteLine("File name chosen: " + fileName);
               
-                string url = "https://smield.host/SMC_api/upload.php";
+                string url = "https://paws.eu.org/SMC_api/upload.php";
 
                 //using (System.Net.WebClient Client = new System.Net.WebClient())
                 //{
                 //    Client.UploadFileCompleted += new UploadFileCompletedEventHandler(UploadFileCallback);
-                //    byte[] response = Client.UploadFile(new Uri("https://smield.host/SMC_api/upload.php", UriKind.Absolute), fileData.FilePath);
+                //    byte[] response = Client.UploadFile(new Uri("https://paws.eu.org/SMC_api/upload.php", UriKind.Absolute), fileData.FilePath);
                 //    MessageBox.Show(Client.Encoding.GetString(response));
 
                 //}
